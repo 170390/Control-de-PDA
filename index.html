@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,19 +21,49 @@
 
 <div class="card">
 
-<h2>Línea Seleccionada</h2>
+<h2>Consultar Línea</h2>
 
-<p id="lineaActual">Ninguna</p>
+<select id="buscarLinea">
+<option value="">Seleccione una línea</option>
+</select>
 
-<button onclick="activarEscanerLinea()">
-Escanear Línea
+<button onclick="consultarLinea()">
+Consultar
 </button>
 
 </div>
 
 <div class="card">
 
-<h2>Asignar PDA</h2>
+<h2>Buscar PDA</h2>
+
+<input
+type="text"
+id="buscarPda"
+placeholder="PDA-001">
+
+<button onclick="buscarPDA()">
+Buscar
+</button>
+
+<p id="resultadoBusqueda"></p>
+
+</div>
+
+<div class="card">
+
+<h2>Asignación</h2>
+
+<p>
+Línea Actual:
+<strong id="lineaActual">
+Ninguna
+</strong>
+</p>
+
+<button onclick="activarEscanerLinea()">
+Escanear Línea
+</button>
 
 <button onclick="activarEscanerPDA()">
 Escanear PDA
@@ -40,26 +71,47 @@ Escanear PDA
 
 </div>
 
-<div id="reader"></div>
-
 <div class="card">
 
-<h2>Listado de Asignaciones</h2>
+<h2>PDAs de la Línea</h2>
+
+<p id="contadorPDA">
+0 PDAs
+</p>
 
 <table>
 
 <thead>
+
 <tr>
-<th>Línea</th>
 <th>PDA</th>
 <th>Fecha</th>
 </tr>
+
 </thead>
 
 <tbody id="tablaAsignaciones">
+
 </tbody>
 
 </table>
+
+</div>
+
+</div>
+
+<div id="modalScanner" class="modal">
+
+<div class="modal-content">
+
+<span class="cerrar"
+onclick="cerrarScanner()">
+
+&times;
+
+</span>
+
+<div id="reader"></div>
 
 </div>
 
