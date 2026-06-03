@@ -195,16 +195,28 @@ document.getElementById(
 .trim()
 .toUpperCase();
 
-let resultado =
-asignaciones.find(
-x =>
-x.pda.toUpperCase()
-=== codigo
-);
-
 let salida =
 document.getElementById(
 "resultadoBusqueda"
+);
+
+if(codigo===""){
+
+salida.innerHTML =
+"Ingrese un código";
+
+return;
+
+}
+
+let resultado =
+
+asignaciones.find(x =>
+
+x.pda
+.toUpperCase()
+.includes(codigo)
+
 );
 
 if(resultado){
