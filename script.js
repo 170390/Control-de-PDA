@@ -7,11 +7,76 @@ JSON.parse(
 localStorage.getItem("asignaciones")
 ) || [];
 
+/* ==========================
+NORMALIZAR LINEAS
+========================== */
+
+function normalizarLinea(texto){
+
+if(!texto) return "";
+
+texto = texto
+.toString()
+.toUpperCase()
+.trim();
+
+let numero =
+texto.match(/\d+/);
+
+if(!numero){
+
+return texto;
+
+}
+
+return "LINEA-" +
+String(numero[0])
+.padStart(2,"0");
+
+}
+
+/* ==========================
+REPARAR DATOS ANTIGUOS
+========================== */
+
+function repararDatos(){
+
+asignaciones.forEach(item=>{
+
+item.linea =
+normalizarLinea(
+item.linea
+);
+
+});
+
+localStorage.setItem(
+
+"asignaciones",
+
+JSON.stringify(
+asignaciones
+)
+
+);
+
+}
+
+/* ==========================
+INICIO
+========================== */
+
 window.onload = function(){
+
+repararDatos();
 
 cargarLineas();
 
 };
+
+/* ==========================
+CARGAR LINEAS
+========================== */
 
 function cargarLineas(){
 
@@ -39,6 +104,10 @@ ${linea}
 
 }
 
+/* ==========================
+CONSULTAR LINEA
+========================== */
+
 function consultarLinea(){
 
 let linea =
@@ -56,16 +125,23 @@ return;
 
 }
 
-lineaActual = linea;
+lineaActual =
+normalizarLinea(
+linea
+);
 
 document.getElementById(
 "lineaActual"
 ).innerText =
-linea;
+lineaActual;
 
 mostrarTabla();
 
 }
+
+/* ==========================
+TABLA
+========================== */
 
 function mostrarTabla(){
 
@@ -78,7 +154,10 @@ tabla.innerHTML = "";
 
 let registros =
 asignaciones.filter(
-x => x.linea === lineaActual
+x =>
+normalizarLinea(
+x.linea
+) === lineaActual
 );
 
 document.getElementById(
@@ -87,7 +166,7 @@ document.getElementById(
 registros.length +
 " PDAs asignadas";
 
-registros.forEach(item => {
+registros.forEach(item=>{
 
 tabla.innerHTML +=
 
@@ -103,16 +182,24 @@ tabla.innerHTML +=
 
 }
 
+/* ==========================
+BUSCAR PDA
+========================== */
+
 function buscarPDA(){
 
 let codigo =
 document.getElementById(
 "buscarPda"
-).value.trim();
+).value
+.trim()
+.toUpperCase();
 
 let resultado =
 asignaciones.find(
-x => x.pda === codigo
+x =>
+x.pda.toUpperCase()
+=== codigo
 );
 
 let salida =
@@ -142,6 +229,10 @@ salida.innerHTML =
 
 }
 
+/* ==========================
+MODAL
+========================== */
+
 function abrirScanner(){
 
 document
@@ -166,12 +257,17 @@ document
 
 if(scannerActivo){
 
-scannerActivo.stop()
+scannerActivo
+.stop()
 .catch(()=>{});
 
 }
 
 }
+
+/* ==========================
+ESCANEAR LINEA
+========================== */
 
 function activarEscanerLinea(){
 
@@ -193,12 +289,15 @@ qrbox:250
 
 function(texto){
 
-lineaActual = texto;
+lineaActual =
+normalizarLinea(
+texto
+);
 
 document.getElementById(
 "lineaActual"
 ).innerText =
-texto;
+lineaActual;
 
 mostrarTabla();
 
@@ -210,12 +309,16 @@ cerrarScanner();
 
 }
 
+/* ==========================
+ESCANEAR PDA
+========================== */
+
 function activarEscanerPDA(){
 
 if(lineaActual===""){
 
 alert(
-"Seleccione una línea primero"
+"Seleccione o escanee una línea primero"
 );
 
 return;
@@ -240,16 +343,26 @@ qrbox:250
 
 function(texto){
 
+texto =
+texto
+.trim()
+.toUpperCase();
+
 let existe =
 asignaciones.find(
-x => x.pda === texto
+x =>
+x.pda.toUpperCase()
+=== texto
 );
 
 if(existe){
 
 alert(
+
 "PDA ya asignada a " +
+
 existe.linea
+
 );
 
 cerrarScanner();
