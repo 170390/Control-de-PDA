@@ -7,7 +7,11 @@ JSON.parse(
 localStorage.getItem("asignaciones")
 ) || [];
 
+window.onload = function(){
+
 cargarLineas();
+
+};
 
 function cargarLineas(){
 
@@ -15,6 +19,9 @@ let combo =
 document.getElementById(
 "buscarLinea"
 );
+
+combo.innerHTML =
+'<option value="">Seleccione una línea</option>';
 
 for(let i=1;i<=19;i++){
 
@@ -25,6 +32,7 @@ String(i).padStart(2,"0");
 combo.innerHTML +=
 `<option value="${linea}">
 ${linea}
+
 </option>`;
 
 }
@@ -81,17 +89,15 @@ registros.length +
 
 registros.forEach(item => {
 
-tabla.innerHTML += `
+tabla.innerHTML +=
 
-<tr>
+`<tr>
 
 <td>${item.pda}</td>
 
 <td>${item.fecha}</td>
 
-</tr>
-
-`;
+</tr>`;
 
 });
 
@@ -118,13 +124,14 @@ if(resultado){
 
 salida.innerHTML =
 
-`
-<strong>PDA:</strong> ${resultado.pda}
-<br>
-<strong>Línea:</strong> ${resultado.linea}
-<br>
-<strong>Fecha:</strong> ${resultado.fecha}
-`;
+"<b>PDA:</b> " +
+resultado.pda +
+
+"<br><b>Línea:</b> " +
+resultado.linea +
+
+"<br><b>Fecha:</b> " +
+resultado.fecha;
 
 }else{
 
@@ -137,19 +144,25 @@ salida.innerHTML =
 
 function abrirScanner(){
 
-document.getElementById(
+document
+.getElementById(
 "modalScanner"
-).style.display =
-"block";
+)
+.classList.add(
+"show"
+);
 
 }
 
 function cerrarScanner(){
 
-document.getElementById(
+document
+.getElementById(
 "modalScanner"
-).style.display =
-"none";
+)
+.classList.remove(
+"show"
+);
 
 if(scannerActivo){
 
@@ -165,11 +178,13 @@ function activarEscanerLinea(){
 abrirScanner();
 
 scannerActivo =
-new Html5Qrcode("reader");
+new Html5Qrcode(
+"reader"
+);
 
 scannerActivo.start(
 
-{ facingMode: "environment" },
+{facingMode:"environment"},
 
 {
 fps:10,
@@ -200,7 +215,7 @@ function activarEscanerPDA(){
 if(lineaActual===""){
 
 alert(
-"Primero seleccione o escanee una línea"
+"Seleccione una línea primero"
 );
 
 return;
@@ -210,11 +225,13 @@ return;
 abrirScanner();
 
 scannerActivo =
-new Html5Qrcode("reader");
+new Html5Qrcode(
+"reader"
+);
 
 scannerActivo.start(
 
-{ facingMode: "environment" },
+{facingMode:"environment"},
 
 {
 fps:10,
@@ -231,8 +248,7 @@ x => x.pda === texto
 if(existe){
 
 alert(
-texto +
-" ya está asignada a " +
+"PDA ya asignada a " +
 existe.linea
 );
 
