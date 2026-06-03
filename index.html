@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
@@ -23,12 +24,10 @@
 
 <h2>Consultar Línea</h2>
 
-<select id="buscarLinea">
-<option value="">Seleccione una línea</option>
-</select>
+<select id="buscarLinea"></select>
 
 <button onclick="consultarLinea()">
-Consultar
+Consultar Línea
 </button>
 
 </div>
@@ -43,7 +42,7 @@ id="buscarPda"
 placeholder="PDA-001">
 
 <button onclick="buscarPDA()">
-Buscar
+Buscar PDA
 </button>
 
 <p id="resultadoBusqueda"></p>
@@ -55,10 +54,10 @@ Buscar
 <h2>Asignación</h2>
 
 <p>
-Línea Actual:
-<strong id="lineaActual">
+<strong>Línea Actual:</strong>
+<span id="lineaActual">
 Ninguna
-</strong>
+</span>
 </p>
 
 <button onclick="activarEscanerLinea()">
@@ -73,7 +72,7 @@ Escanear PDA
 
 <div class="card">
 
-<h2>PDAs de la Línea</h2>
+<h2>PDAs Asignadas</h2>
 
 <p id="contadorPDA">
 0 PDAs
@@ -104,12 +103,13 @@ Escanear PDA
 
 <div class="modal-content">
 
-<span class="cerrar"
+<button
+class="btnCerrar"
 onclick="cerrarScanner()">
 
-&times;
+Cerrar
 
-</span>
+</button>
 
 <div id="reader"></div>
 
@@ -120,4 +120,5 @@ onclick="cerrarScanner()">
 <script src="script.js"></script>
 
 </body>
+
 </html>
