@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Control de PDA</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Control de PDA por Línea</h1>
+
+<div class="card">
+
+<h2>Línea Seleccionada</h2>
+
+<p id="lineaActual">Ninguna</p>
+
+<button onclick="activarEscanerLinea()">
+Escanear Línea
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Asignar PDA</h2>
+
+<button onclick="activarEscanerPDA()">
+Escanear PDA
+</button>
+
+</div>
+
+<div id="reader"></div>
+
+<div class="card">
+
+<h2>Listado de Asignaciones</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Línea</th>
+<th>PDA</th>
+<th>Fecha</th>
+</tr>
+</thead>
+
+<tbody id="tablaAsignaciones">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
